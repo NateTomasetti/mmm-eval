@@ -299,7 +299,7 @@ class AccuracyMetricResults(MetricResults):
             mape=mean_absolute_percentage_error(actual, predicted) * 100,
             smape=calculate_smape(actual, predicted),
             r_squared=r2_score(actual, predicted),
-            crps=calculate_crps(actual, predicted, date_column),
+            crps=calculate_crps(actual, distribution, date_column),
         )
 
 
