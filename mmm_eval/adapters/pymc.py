@@ -225,6 +225,7 @@ class PyMCAdapter(BaseAdapter):
         posterior_prediction = self.model.predict_posterior(
             data, extend_idata=False, include_last_observations=True, combined=True, **self.predict_kwargs
         )
+        posterior_prediction = np.array(posterior_prediction)
         posterior_mean = posterior_prediction.mean(axis=1)
         return posterior_mean, posterior_prediction.transpose()
 

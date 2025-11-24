@@ -72,13 +72,14 @@ def crps_one_date(df: pd.DataFrame) -> float:
         # CRPS reduces to absolute error for one sample
         crps = np.abs(df["pred_distribution"].values[0] - response)
     else:
-        pred_sample_one = df.iloc[: n_samples // 2]["pred_distribution"].values
-        pred_sample_two = df.iloc[n_samples // 2 :]["pred_distribution"].values
+        pred_samples = df["pred_distribution"].values
+        pred_sample_one = pred_samples[: n_samples // 2]
+        pred_sample_two = pred_samples[n_samples // 2 :]
         if len(pred_sample_two) != len(pred_sample_one):
             # If an odd number of samples, drop the last one
             pred_sample_two = pred_sample_two[:-1]
 
-        crps = np.mean(np.abs(pred_sample_one - response)) - 0.5 * np.mean(np.abs(pred_sample_one - pred_sample_two))
+        crps = np.mean(np.abs(pred_samples - response)) - 0.5 * np.mean(np.abs(pred_sample_one - pred_sample_two))
 
     response_bounded = max(response, 1e-5)
     return 100 * crps / response_bounded
@@ -91,6 +92,7 @@ def calculate_crps(response_series: pd.Series, predicted_distribution: pd.DataFr
         response_series: A series of the actual sales values
         predicted_distribution: A dataframe containing a sample of the prediction distribution for each date.
             If there is only a single sample, the CRPS reduces to the mean absolute (percentage) error.
+        date_column: Name of the date index colume to merge inputs together.
 
     Returns:
         Scaled CRPS value as float
