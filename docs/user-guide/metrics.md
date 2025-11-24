@@ -16,6 +16,7 @@ mmm-eval calculates several key metrics across different validation tests:
 - **MAPE (Mean Absolute Percentage Error)**: Average percentage error between predictions and actual values
 - **SMAPE (Symmetric Mean Absolute Percentage Error)**: Symmetric version of MAPE that treats over and underestimation equally
 - **R-squared**: Proportion of variance explained by the model
+- **CRPS (Continuous Ranked Probability Score)**: Distributional accuracy metric
 
 ### Stability Metrics
 
@@ -62,6 +63,19 @@ R² = 1 - (Σ(y_i - ŷ_i)² / Σ(y_i - ȳ)²)
 - **Range**: 0 to 1 (higher is better)
 - **Scale**: 1 = perfect fit, 0 = no predictive power
 - **Benchmark**: > 0.8 is generally good
+
+### CRPS (Continuous Ranked Probability Score)
+
+```python
+CRPS = ((1/n) * Σ|y_i - ŷ| - (0.5/n) * Σ|y_i - x_i|) / y_i)
+```
+where `x_i` and `y_i` are samples from the posterior predictive distribution
+
+
+**Interpretation**:
+- **Lower is better**: 0% = perfect predictions, no uncertainty
+- **Scale**: Expressed as a percentage, e.g. 15.0 rather than 0.15
+
 
 ## Test-Specific Metrics
 
