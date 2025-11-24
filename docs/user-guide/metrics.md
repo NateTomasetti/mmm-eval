@@ -86,6 +86,7 @@ Metrics calculated on out-of-sample predictions using train/test splits.
 - **MAPE**: Overall prediction accuracy
 - **SMAPE**: Symmetric prediction accuracy
 - **R-squared**: Model fit quality
+- **CRPS**: Distribution prediction accuracy
 
 ### In-Sample Accuracy Test Metrics
 
@@ -94,6 +95,8 @@ Metrics calculated on in-sample predictions using the full dataset.
 - **MAPE**: Model fit accuracy
 - **SMAPE**: Symmetric model fit accuracy
 - **R-squared**: Model fit quality
+- **CRPS**: Distribution prediction accuracy
+
 
 ### Cross-Validation Metrics
 
@@ -103,6 +106,8 @@ Metrics calculated on in-sample predictions using the full dataset.
 - **Std SMAPE**: Consistency of symmetric accuracy across folds
 - **Mean R-squared**: Average out-of-sample fit
 - **Std R-squared**: Consistency of fit across folds
+- **Mean CRPS**: Average distribution prediction accuracy
+
 
 ### Refresh Stability Metrics
 
@@ -132,6 +137,7 @@ model picking up spurious correlations.
 - **MAPE < 15%**: Good prediction accuracy
 - **SMAPE < 15%**: Good symmetric prediction accuracy
 - **R-squared > 0.8**: Strong model fit
+- **CRPS < 15%**: Good distributional accuracy
 - **Low perturbation sensitivity**: Robust to input noise
 - **Low placebo ROI (≤ -50%)**: Correctly identifies spurious features and assigns them low effect sizes
 
@@ -148,6 +154,7 @@ model specification to the problem at hand.
 | MAPE | < 5% | 5-10% | 10-15% | > 15% |
 | SMAPE | < 5% | 5-10% | 10-15% | > 15% |
 | R-squared | > 0.9 | 0.8-0.9 | 0.6-0.8 | < 0.6 |
+| CRPS | < 5% | 5-10% | 10-15% | > 15% |
 | Parameter Change | < 5% | 5-10% | 10-20% | > 20% |
 | Perturbation Change | < 5% | 5-10% | 10-15% | > 15% |
 | Placebo ROI | ≤ -50% | -50% to -25% | -25% to 0% | > 0% |
@@ -179,6 +186,7 @@ class CustomMetric(BaseMetric):
 - **Start with MAPE**: Most intuitive for business users
 - **Include SMAPE**: More robust alternative to MAPE for symmetric evaluation
 - **Include R-squared**: Technical measure of fit quality
+- **Add CRPS**: Measure the uncertainty of the predictions
 - **Monitor stability**: Critical for production models
 - **Track performance**: Important for scalability
 
